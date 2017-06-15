@@ -1,8 +1,7 @@
-
-
 const yargs=require('yargs');
 
 const geocode=require('./geocode/geocode')
+const weather=require('./weather/weather')
 
 const argv=yargs
     .options({
@@ -17,12 +16,17 @@ const argv=yargs
     .alias('help','h')
     .argv;
 
-console.log(argv);
-
 geocode.geocodeAddress(argv.a,(errorMessage,results)=>{
   if(errorMessage){
     console.log(errorMessage);
   }else{
-    console.log(JSON.stringify(results,undefined,2));
+    console.log(`Address: ${results.address}`);
+    weather.getWeatherDetails(results.latitude,results.longitude,(errorMessage,results)=>{
+        if(errorMessage){
+          console.log(errorMessage);
+        }else{
+          console.log(`Currently it is ${results.temperature}`);
+        }
+    })
   }
 });

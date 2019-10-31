@@ -1,6 +1,6 @@
 const request = require('request');
 
-
+// this method gets weather details from respective API
 var getWeatherDetails=(lat,lng,callback)=>{
   request({
     url:`https://api.darksky.net/forecast/986fbfe89181b7d6e262aee92ae61e25/${lat},${lng}`,
@@ -11,7 +11,7 @@ var getWeatherDetails=(lat,lng,callback)=>{
         temperature:body.currently.temperature
       });
     }else{
-      callback("Unable to connect to forecast server.")
+      callback("Unable to connect to forecast server.Please try Again Later")
     }
   });
 
